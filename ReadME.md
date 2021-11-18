@@ -30,11 +30,9 @@ The code in this replication package runs 3 do files in Stata to achieve the fol
 
 * Open the ```master.do```, change the directory to your local file path. Change the values of other globals or let the default options remain. Run the entire do-file
 
-* Dataset constructed of the filtered studies from the user's input is saved as ```constructed/user_input.dta```
-
 * Outputs i.e. datasets, graphs and the word document are saved in the ```output``` folder in their respective folders. They are either saved by their default names or by the name given by the user
 
-* In the ```master.do``` file, create additional changes, if required, in the marked spaces.
+* In the ```master.do``` file, create additional changes, if required, in the marked spaces
 
 * Change your input in the excel file or the global values and run the entire ```master.do``` to get results from a different subset of studies or from a different methodology
 
