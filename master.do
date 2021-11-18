@@ -2,7 +2,7 @@
   // Globals
   
    
-  global directory "/Users/RuchikaBhatia/Desktop/hcppr_box/user_input"
+  global directory "/Users/RuchikaBhatia/Box/Ruchika Mumbai Hospital/Database CDC SR/user_input"
   
   global filter = "2"
   /*
@@ -10,7 +10,7 @@
   Select 2 for running meta-analysis on the filtered studies
   */
 	
-  global filename = "ARI"
+  global filename = "check"
  /*
  Enter the name via which you would like all the outputs i.e. forestplots, datatsets and the word document to be saved. 
  If you don't have a preference, let the default of "filename" remain
@@ -24,7 +24,7 @@
 	  If you don't have a preference or just want to filter studies without running meta-analysis, let the default of "1" remain  
 	  */
 	  
- global corr = "0.5"
+ global corr = "0.4,0.8"
 	  /*
 	  If you included "1" in the global analysis, then select the correlation to be assumed between outcomes in all studies for calculating the std. error of the sythetic effect size 
 	  If you want results from separate correlations, then separate them by a ",". For eg: select corr = "0.4,0.5,0.6" if you want 3 sets of results with correlation assumed to be 0.4, 0.5, 0.6 respectively
@@ -55,10 +55,11 @@
 	  run "${directory}/code/clean.do"
 	  run "${directory}/code/construct.do"
 	 
-	 ****************************************************************************
-	 ******** use "${directory}/output/data/user_input.dta", clear **************  
+	  drop if StdErrES == .
+	 
+	 **************************************************************************** 
 	 ******** Make Additional Changes To The Filtered Studies Here  *************
-	 ******** save "${directory}/output/data/user_input.dta", replace ***********  
+	 ******** save "${directory}/output/data/${filename}.dta", replace ***********  
 	 ****************************************************************************
 	 
 	 run "${directory}/code/analysis.do"
