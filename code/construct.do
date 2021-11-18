@@ -285,14 +285,14 @@
 				}
 			  }
 			}
-			save "${directory}/constructed/user_input.dta", replace
+			save "${directory}/output/data/${filename}.dta", replace
 		  }
 
 		  // If no input from user in characteristics sheet
 		  else {
 			// tempfile charac_merge
 			use `effect_sizes', clear
-			save "${directory}/constructed/user_input.dta", replace
+			save "${directory}/output/data/${filename}.dta", replace
 		  }
 		  
 		  

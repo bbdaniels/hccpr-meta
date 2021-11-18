@@ -81,26 +81,21 @@
   
   // create name for each study  
   gen name = work1 + "(" + _match1 + ")"
-  
-  //gen name = work1 + "(" + _match1 + ")" + ":" +  Outcome_definition + " " + "(" + "Comparison-" + comp + ")"
-  
-  //gen name_comp = work1 + "(" + _match1 + ")" + ":" + "Comparison-" + comp 
-  
+   
   drop work _match* _pos* _merge
   
   // number of strategies 
   gen n_strategy = length(strategy) - length(subinstr(strategy, "+", "", .)) + 1 
-  //bys studyid: egen n_strategy_study = max(n_strategy)
   
    	local varlist "OUTCOME_case_mgmt OUTCOME_counseling OUTCOME_diagnosis OUTCOME_document OUTCOME_other_practice OUTCOME_pt_assess OUTCOME_treatment OUTCOME_univers_precaution OUTCOME_vaccination OUTCOME_referral"
   
+  // create var for outcome_group
   local i = 1 
   gen outcome_group = ""
   foreach var in `varlist' {
   	replace outcome_group = "`: word `i' of `varlist''" if `var' == 1 
 	local i = `i' + 1	
   }
-  
   
   replace outcome_group = proper(outcome_group)
   replace outcome_group = subinstr(outcome_group,"_",": ",1)
@@ -110,7 +105,6 @@
   replace outcome_group = "Outcome: Universal Precaution" if outcome_group == "Outcome: Univers_Precaution"
    
   destring StdErrES, replace 
-  drop if StdErrES == . 
   
   format studyid %12.0f
     

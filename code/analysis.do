@@ -1,6 +1,6 @@
 	
 	
-
+	// assign values input by user for globals analysis and corr to separate variables
 	foreach input in analysis corr {
 		clear
 		set obs 1
@@ -17,14 +17,16 @@
 		} 
 	}
 	
-
+		// meta-analysis to be run at study level
 		if(strpos("${analysis}", "1") > 0) {
-			  use "${directory}/constructed/user_input.dta", clear
+			  use "${directory}/output/data/${filename}.dta", clear
+			  drop if StdErrES == .
 			  gen group = studyid
   
 			  bys group: gen n_outcomes = _N
 			  bys group: egen effect_size = mean(Effect_size)
 			  
+			  // assign a number (like 1,2,3) to each studyid
 			  preserve
 				tempfile id
 				duplicates drop group, force
@@ -39,7 +41,7 @@
 			  gen covariance = 0 
 			  gen variance_sum = 0
 			  
-			  
+			  // calculate covariance for each studyid
 			  forv n_id = 1/`=id[_N]' {
 					preserve 
 						tempfile id`n_id'
@@ -66,6 +68,7 @@
 						}	
 						replace covariance = `sum'
 						
+						// calculate sum of variances for each studyid
 						local variance_sum = `=StdErrES[1]' * `=StdErrES[1]'
 						if (`n'>= 2) {
 							forv q = 2/`n' {
@@ -81,6 +84,7 @@
 					
 			  }
 			  
+			  // append datasets for all studyids
 			  local number = `=id[_N]'
 			  use `id1', clear 
 			  
@@ -91,6 +95,7 @@
 			  tempfile analysis_1
 			  save `analysis_1'
 			  
+			  // calculate std. error of synthetic effect size for each correlation value
 			  forv v = 1/$n_corr {
 			  	use `analysis_1', clear 
 				gen variance = ((variance_sum) + ${corr_`v'} * covariance)/(n_outcomes*n_outcomes)
@@ -106,7 +111,8 @@
 		}
 		
 		if("`: word 1 of `lev_analysis''" == "2" | "`: word 2 of `lev_analysis''" == "2") {
-			use "${directory}/constructed/user_input.dta", clear
+			use "${directory}/output/data/${filename}", clear
+			drop if StdErrES == .
 			save "${directory}/output/data/${filename}_meta_2.dta", replace 
 		}
 	
