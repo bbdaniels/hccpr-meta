@@ -26,6 +26,8 @@ The code in this replication package runs 3 do files in Stata to achieve the fol
 ## Instructions to Replicators
 * Stata version used- 16.1. Update version 16 if not done already
 
+* If you have access to the HCPPR dataset in excel format (with std. errors), rename it as ```HCPPR_Data_ES_StdErrES_26Jan2021 (1).xlsx``` and save it in the ```data``` folder
+
 * Open the ```data/user_input.xlsx```, make necessary changes and then save it. Read the intructions for user_input column and the comments in the excel file carefully before making any changes
 
 * Open the ```master.do```, change the directory to your local file path. Change the values of other globals or let the default options remain. Run the entire do-file
