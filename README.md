@@ -1,6 +1,6 @@
 ## Note
 
-The raw dataset required to replicate this code is not on open access.
+The raw dataset required to replicate this code (that is, the HCCPR dataset with standard errors for binary outcomes) is not available to re-distribute via this repository; you must acquire it yourself from the original source.
 
 
 ## Overview
